@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts'
-import { TrendingUp, Users, DollarSign, Target, Shield, Zap, BarChart3, FileText, CreditCard, Settings, Bell, Search, Filter, Download, ChevronRight, ArrowUp, ArrowDown, Check, X, Menu, Star, Lock, Briefcase, MapPin, Phone, Mail, Calendar, Activity, Globe, Award, Clock, AlertCircle, TrendingDown, Eye, EyeOff } from 'lucide-react'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts'
+import { TrendingUp, Users, DollarSign, Target, Shield, Zap, BarChart3, FileText, CreditCard, Settings, Bell, Search, Filter, Download, ChevronRight, ArrowUp, ArrowDown, Check, X, Menu, Star, Lock, Briefcase, MapPin, Phone, Mail, Calendar, Activity, Globe, Award, Clock, AlertCircle, TrendingDown, Eye, EyeOff, Sparkles, ArrowRight, Play, ChevronDown, CheckCircle, AlertTriangle, Database, Cloud, Smartphone, Globe2, Headphones, MessageSquare, ZapOff, Timer, TrendingUpIcon, PieChartIcon, Layers, ShieldCheck, UserCheck, MailCheck, PhoneCall, MapPinCheck } from 'lucide-react'
 
 const App = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -11,6 +11,12 @@ const App = () => {
   const [activeSection, setActiveSection] = useState('home')
   const [scrolled, setScrolled] = useState(false)
   const [counters, setCounters] = useState({ leads: 0, clients: 0, uptime: 0, revenue: 0 })
+  const [showVideoModal, setShowVideoModal] = useState(false)
+  
+  const { scrollY } = useScroll()
+  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0])
+  const heroScale = useTransform(scrollY, [0, 300], [1, 0.8])
+  const heroY = useTransform(scrollY, [0, 300], [0, -50])
   
   useEffect(() => {
     const handleScroll = () => {
