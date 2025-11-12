@@ -1,0 +1,33 @@
+name: Deploy to Hostinger via SFTP
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build project
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          server: us-phx-web1139.main-hosting.eu
+          port: 22
+          username: u616095890
+          ssh_private_key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          local_path: './dist/*'
+          remote_path: '/home/u616095890/domains/sundreammedia.com/public_html/goldflow/'
+          args: '-o ConnectTimeout=5'
+
